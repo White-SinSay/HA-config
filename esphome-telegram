@@ -1,9 +1,12 @@
+--------------------
 Боты которые понядобяться для создания своего бота и получения id пользователя или канала
 
 @BotFather
 @ShowJsonBot
 
-
+--------------------
+configuration.yaml
+--------------------
 telegram_bot:
   - platform: polling
     api_key: !secret telegram_bot_api_key
@@ -25,6 +28,8 @@ notify:
   - name: telegram_white
     platform: telegram
     chat_id: !secret telegram_bot_taneza_id
+
+Конфиг действия в автоматизациях
 
 ---------------------------------------------------------------------------------    
 data:
