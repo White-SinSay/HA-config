@@ -29,6 +29,19 @@ notify:
     platform: telegram
     chat_id: !secret telegram_bot_taneza_id
 
+--------------------
+secrets.yaml
+--------------------
+telegram_bot_api_key: 1234567890:AABBc1FcwtqwDlubwqea6gwqrX_SqwrcbhsffsZyCd
+telegram_bot_chat_id: -123456789
+telegram_bot_white_id: 123456789
+telegram_bot_taneza_id: 123456789
+telegram_bot_wdi_id: 123456789
+
+
+
+
+
 Конфиг действия в автоматизациях
 
 ---------------------------------------------------------------------------------    
