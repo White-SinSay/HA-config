@@ -1,0 +1,85 @@
+light_off:
+
+    automation:
+#############################################################
+      - alias: Telegram / Дом. Свет в туалете
+        initial_state: true
+        description: ''
+        trigger:
+        - entity_id: switch.sonoff_1000af511a_2
+          for: 00:20:00
+          from: 'off'
+          platform: state
+          to: 'on'
+        condition: []
+        action:
+         - service: notify.telegram_white
+           data_template:
+             message: '{{"\U0001F4A1"}}{{"\U0001F6BD"}} Свет в туалете включен более 15 минут'
+             data:
+               inline_keyboard:
+                 - "{{ 'Выключить:/tualet_ligt_off' }}"
+         - service: notify.telegram_taneza
+           data_template:
+             message: '{{"\U0001F4A1"}}{{"\U0001F6BD"}} Свет в туалете включен более 15 минут'
+             data:
+               inline_keyboard:
+                 - "{{ 'Выключить:/tualet_ligt_off' }}"
+        mode: single
+###
+      - alias: Telegram / Дом. Свет в туалете OFF
+        initial_state: true
+        trigger:
+          platform: event
+          event_type: telegram_callback
+          event_data:
+            data: '/tualet_ligt_off'
+        action:
+          - service: telegram_bot.answer_callback_query
+            data_template:
+              callback_query_id: "{{ trigger.event.data.id }}"
+              message: "{{ 'Выключаю...' if is_state('switch.sonoff_1000af511a_2', 'on') else 'Свет выключен' }}"
+          - service: switch.turn_off
+            target:
+              entity_id: switch.sonoff_1000af511a_2
+#############################################################
+      - alias: Telegram / Дом. Свет в ванной 
+        initial_state: true
+        description: ''
+        trigger:
+        - entity_id: switch.sonoff_1000af511a_1
+          for: 00:45:00
+          from: 'off'
+          platform: state
+          to: 'on'
+        condition: []
+        action:
+         - service: notify.telegram_white
+           data_template:
+             message: '{{"\U0001F4A1"}}{{"\U0001F6C0"}} Свет в ванной включен более 30 минут'
+             data:
+               inline_keyboard:
+                 - "{{ 'Выключить:/vanna_ligt_off' }}"
+         - service: notify.telegram_taneza
+           data_template:
+             message: '{{"\U0001F4A1"}}{{"\U0001F6C0"}} Свет в ванной включен более 30 минут'
+             data:
+               inline_keyboard:
+                 - "{{ 'Выключить:/vanna_ligt_off' }}"
+        mode: single
+###
+      - alias: Telegram / Дом. Свет в ванной OFF
+        initial_state: true
+        trigger:
+          platform: event
+          event_type: telegram_callback
+          event_data:
+            data: '/vanna_ligt_off'
+        action:
+          - service: telegram_bot.answer_callback_query
+            data_template:
+              callback_query_id: "{{ trigger.event.data.id }}"
+              message: "{{ 'Выключаю...' if is_state('switch.sonoff_1000af511a_1', 'on') else 'Свет выключен' }}"
+          - service: switch.turn_off
+            target:
+              entity_id: switch.sonoff_1000af511a_1
